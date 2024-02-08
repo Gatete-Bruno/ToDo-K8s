@@ -1,0 +1,74 @@
+Builder Phase (FROM node:8.15.1 as builder)
+Setting the Working Directory:
+
+dockerfile
+Copy code
+WORKDIR /usr/src/app
+Sets the working directory to /usr/src/app within the container.
+
+Copying Package Files:
+
+dockerfile
+Copy code
+COPY package*.json ./
+Copies the package.json and package-lock.json files into the container.
+
+Installing Dependencies:
+
+dockerfile
+Copy code
+RUN npm install
+Installs Node.js dependencies specified in the package files.
+
+Copying the Application Code:
+
+dockerfile
+Copy code
+COPY ..
+Copies the rest of the application code into the container.
+
+Building the Application:
+
+dockerfile
+Copy code
+RUN npm run ng build -- --prod -output-path=dist
+Executes the Angular build process to create a production-ready build in the dist directory.
+
+Production Run Phase (FROM nginx:1.15.9-alpine)
+Setting the Exposed Port:
+
+dockerfile
+Copy code
+EXPOSE 8080
+Exposes port 8080 on the container.
+
+Copying from Builder Phase:
+
+dockerfile
+Copy code
+COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
+Copies the dist directory containing the built Angular application from the builder phase into the final production image.
+
+Custom Nginx Configuration:
+
+dockerfile
+Copy code
+COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
+Copies a custom Nginx configuration file into the /etc/nginx/conf.d directory.
+
+Adding User and Group:
+
+dockerfile
+Copy code
+RUN addgroup www-data && \
+    adduser -S -H -g "" -G www-data www-data
+Adds a group (www-data) and a user (www-data) to the container.
+
+Adjusting Nginx Permissions:
+
+dockerfile
+Copy code
+RUN touch /var/run/nginx.pid && \
+    chown -R www-data:www-data /var/run/nginx.pid && \
+    chown -R www-data:www-data /var/cache/nginx
+Creates an empty nginx.pid file, then adjusts ownership of nginx.pid and the nginx cache directory to the www-data user and group.

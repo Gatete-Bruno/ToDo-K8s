@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml -f docker-compose.prod.yml --replicas=2
+    kompose.version: 1.32.0 (HEAD)
+  labels:
+    io.kompose.service: todo-cache-service
+  name: todo-cache-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      io.kompose.service: todo-cache-service
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -f docker-compose.prod.yml --replicas=2
+        kompose.version: 1.32.0 (HEAD)
+      labels:
+        io.kompose.network/todo-docker-compose-default: "true"
+        io.kompose.service: todo-cache-service
+    spec:
+      containers:
+        - env:
+            - name: REDIS_HOST
+            - name: REDIS_PORT
+          image: bruno74t/todo-cache-service:1.0
+          name: todo-cache-service
+          ports:
+            - containerPort: 3000
+              hostPort: 3001
+              protocol: TCP
+          resources:
+            limits:
+              memory: "134217728"
+      restartPolicy: Always

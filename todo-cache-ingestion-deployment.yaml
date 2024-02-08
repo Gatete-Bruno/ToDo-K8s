@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml -f docker-compose.prod.yml --replicas=2
+    kompose.version: 1.32.0 (HEAD)
+  labels:
+    io.kompose.service: todo-cache-ingestion
+  name: todo-cache-ingestion
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      io.kompose.service: todo-cache-ingestion
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -f docker-compose.prod.yml --replicas=2
+        kompose.version: 1.32.0 (HEAD)
+      labels:
+        io.kompose.network/todo-docker-compose-default: "true"
+        io.kompose.service: todo-cache-ingestion
+    spec:
+      containers:
+        - args:
+            - sh
+            - /app/start.sh
+          env:
+            - name: RABBITMQ_URL
+            - name: REDIS_HOST
+            - name: REDIS_PORT
+            - name: STORAGE_SERVICE_URL
+          image: bruno74t/todo-cache-ingestion:1.0
+          name: todo-cache-ingestion
+          resources:
+            limits:
+              memory: "134217728"
+      restartPolicy: Always
