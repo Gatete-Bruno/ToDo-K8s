@@ -1,12 +1,12 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
+apiVersion: v1  # Specifies the API version of the Kubernetes object (v1 is the core API version).
+kind: PersistentVolumeClaim  # Specifies the type of Kubernetes resource, in this case, a PersistentVolumeClaim.
 metadata:
   labels:
-    io.kompose.service: elastic-data
-  name: elastic-data
+    io.kompose.service: elastic-data  # Labels provide metadata and are used for identification or grouping purposes.
+  name: elastic-data  # The name of the PersistentVolumeClaim.
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce  # Defines the desired access mode for the PersistentVolumeClaim, in this case, ReadWriteOnce.
   resources:
     requests:
-      storage: 100Mi
+      storage: 100Mi  # Requests a minimum storage capacity of 100 megabytes for the PersistentVolumeClaim.
