@@ -10,3 +10,6 @@ spec:
   resources:
     requests:
       storage: 100Mi  # Requests a minimum storage capacity of 100 megabytes for the PersistentVolumeClaim.
+
+
+#In summary, this YAML file is creating a PersistentVolumeClaim named "elastic-data" with a requested storage capacity of 100 megabytes and an access mode of ReadWriteOnce. The label "io.kompose.service: elastic-data" is added for potential service identification or grouping within the Kubernetes environment.
