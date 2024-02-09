@@ -1,3 +1,3 @@
 # ToDo-K8s
-With Docker Compose
+With Kubernetes 
 # todo-k8s
