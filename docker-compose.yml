@@ -1,4 +1,5 @@
-version: "3"
+# Using version 2 as 3 does not support resource constraint options (cpu_*, mem_* limits) for non swarm mode in Compose
+version: "2"
 
 services:
   todo-rabbitmq:
@@ -174,7 +175,7 @@ services:
       context: ./todo-view
       dockerfile: Dockerfile.dev
     image: todo-view:development
-    mem_limit: 128m
+    mem_limit: 768m
     ports:
       - 4200:4200
     volumes:
@@ -187,7 +188,7 @@ services:
     container_name: todo-proxy
     build:
       context: ./todo-proxy
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile
     image: todo-proxy:development
     mem_limit: 128m
     ports:

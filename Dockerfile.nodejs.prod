@@ -8,21 +8,10 @@ WORKDIR /home/node/app
 
 COPY ./package*.json ./
 
-# Run npm install to generate package-lock.json
-RUN npm install
-
 USER node
 
-# Change user to root temporarily for npm ci
-USER root
-
-# Use npm ci with the generated package-lock.json
 RUN npm ci --only=production
 
-# Change back to non-root user
-USER node
-
-# Copy the rest of the application
 COPY --chown=node:node . .
 
 EXPOSE 3000
