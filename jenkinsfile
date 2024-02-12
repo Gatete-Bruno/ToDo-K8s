@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE_TAG = "latest"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    checkout scm
+                }
+            }
+        }
+
+        stage('Build and Push Docker Images') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.example.com', 'docker_credentials') {
+                        docker.image('node:8.15.1-alpine').inside {
+                            // Build and push each service image
+                            buildAndPushDockerImage('todo-cache-ingestion')
+                            buildAndPushDockerImage('todo-cache-service')
+                            buildAndPushDockerImage('todo-search-ingestion')
+                            buildAndPushDockerImage('todo-search-service')
+                            buildAndPushDockerImage('todo-storage-ingestion')
+                            buildAndPushDockerImage('todo-storage-service')
+                            buildAndPushDockerImage('todo-api-gateway')
+                            buildAndPushDockerImage('todo-view')
+                            buildAndPushDockerImage('todo-proxy')
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                script {
+                    // Deploy the application to production using docker-compose
+                    sh 'docker-compose -f docker-compose.prod.yml up -d'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Cleanup - remove the Docker images created during the build
+            cleanDockerImages()
+        }
+    }
+}
+
+def buildAndPushDockerImage(serviceName) {
+    echo "Building and pushing Docker image for ${serviceName}"
+    sh "docker build -t bruno74t/${serviceName}:${DOCKER_IMAGE_TAG} -f ${serviceName}/Dockerfile.nodejs.prod ."
+    sh "docker push bruno74t/${serviceName}:${DOCKER_IMAGE_TAG}"
+}
+
+def cleanDockerImages() {
+    echo 'Cleaning up Docker images'
+    sh 'docker system prune -af'
+}
