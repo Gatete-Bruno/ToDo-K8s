@@ -11,4 +11,4 @@ spec:
  accessModes:
    - ReadWriteOnce
  hostPath:
-   path: "{path-to-your}/kubedata/todo/elastic"
+   path: "/home/kato/todo-k8s/k8s/elastic-data"
