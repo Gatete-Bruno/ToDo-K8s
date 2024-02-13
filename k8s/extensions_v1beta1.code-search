@@ -1,0 +1,53 @@
+# Query: extensions/v1beta1
+# ContextLines: 1
+
+12 results - 12 files
+
+k8s/todo-cache-ingestion-deployment.yaml:
+  1: apiVersion: apps/v1
+  2  kind: Deployment
+
+k8s/todo-cache-service-deployment.yaml:
+  1: apiVersion: apps/v1
+  2  kind: Deployment
+
+k8s/todo-elastic-deployment.yaml:
+  1: apiVersion: apps/v1
+  2  kind: Deployment
+
+k8s/todo-postgres-deployment.yaml:
+  1: apiVersion: apps/v1
+  2  kind: Deployment
+
+k8s/todo-proxy-deployment.yaml:
+  1: apiVersion: apps/v1
+  2  kind: Deployment
+
+k8s/todo-rabbitmq-deployment.yaml:
+  1: apiVersion: apps/v1
+  2  kind: Deployment
+
+k8s/todo-search-ingestion-deployment.yaml:
+  1: apiVersion: apps/v1
+  2  kind: Deployment
+
+k8s/todo-search-service-deployment.yaml:
+  1: apiVersion: extensions/v1beta1
+  2  kind: Deployment
+
+k8s/todo-storage-ingestion-deployment.yaml:
+  1: apiVersion: apps/v1
+  2  kind: Deployment
+
+k8s/todo-storage-service-deployment.yaml:
+  1: apiVersion: apps/v1
+  2  kind: Deployment
+
+k8s/todo-view-deployment.yaml:
+  1: apiVersion: apps/v1
+  2  kind: Deployment
+
+k8s-examples/ingress-example.yaml:
+  50   
+  51: apiVersion: apps/v1
+  52  kind: Ingress
