@@ -6,7 +6,7 @@ metadata:
   labels:
     todo-app-service: todo-search-service
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     todo-app-pod: todo-search-service
   ports:

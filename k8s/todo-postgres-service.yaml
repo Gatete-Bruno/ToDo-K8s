@@ -6,7 +6,7 @@ metadata:
   labels:
     todo-app-service: todo-postgres
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     todo-app-pod: todo-postgres
   ports:

@@ -6,7 +6,7 @@ metadata:
   labels:
     todo-app-service: todo-rabbitmq
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     todo-app-pod: todo-rabbitmq
   ports:

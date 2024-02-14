@@ -76,7 +76,7 @@ spec:
  ports:
  - port: 80
    name: web
- clusterIP: None
+ NodePort: None
  selector:
    app: nginx-sts-demo
  

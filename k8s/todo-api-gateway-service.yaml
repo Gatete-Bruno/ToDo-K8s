@@ -6,7 +6,7 @@ metadata:
   labels:
     todo-app-service: todo-api-gateway
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     todo-app-pod: todo-api-gateway
   ports:
