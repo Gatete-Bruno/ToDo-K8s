@@ -12,3 +12,4 @@ spec:
    - ReadWriteOnce
  hostPath:
    path: "/home/kato/todo-k8s/k8s/elastic-data"
+   #Worried about this causing a crashloop
