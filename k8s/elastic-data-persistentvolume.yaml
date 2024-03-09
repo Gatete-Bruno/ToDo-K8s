@@ -11,6 +11,7 @@ spec:
  accessModes:
    - ReadWriteOnce
  hostPath:
-   path: "/home/kato/todo-k8s/k8s/elastic-data"
+   path: "/home/kato/kubedata/todo/elastic"
+   #Create this folder
    #Worried about this causing a crashloop
 #sudo chmod -R 777 /home/kato/todo-k8s/k8s/elastic-data
